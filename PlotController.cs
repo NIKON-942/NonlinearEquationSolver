@@ -12,7 +12,7 @@ namespace WPF
         private const int CountOfSteps = 100000;
 
         // Стандартні межі для побудови графіку, при їх зміні генеруватимуться нові значення х для побудови.
-        private double _left = -200;
+        private double _left = -100;
         public double Left
         {
             set
@@ -20,7 +20,7 @@ namespace WPF
                 if (value > _right)
                     throw new ArgumentException("Incorrect left limit value");
                 _left = value;
-                _right = 200;
+                _right = 100;
                 _step = (_right - _left) / CountOfSteps;
                 _dataX = Generate.Range(_left, _right, _step);
             }
@@ -30,7 +30,7 @@ namespace WPF
             }
         }
 
-        private double _right = 200;
+        private double _right = 100;
         public double Right
         {
             set
@@ -38,8 +38,8 @@ namespace WPF
                 if (value < _left)
                     throw new ArgumentException("Incorrect left limit value");
                 _right = value;
-                _left = -200;
-                _step = (_right - _left) / CountOfSteps; 
+                _left = -100;
+                _step = (_right - _left) / CountOfSteps;
                 _dataX = Generate.Range(_left, _right, _step);
             }
             get
@@ -83,8 +83,8 @@ namespace WPF
         // Повернути обмеження малювання графіку за замовчуванням.
         public void ResetLimits()
         {
-            _left = -200;
-            _right = 200;
+            _left = -100;
+            _right = 100;
             _step = (_right - _left) / CountOfSteps;
             _dataX = Generate.Range(_left, _right, _step);
         }
