@@ -9,7 +9,7 @@ namespace WPF
         private Equation _equation;
         private double[] _dataX;
 
-        private const int CountOfSteps = 100000;
+        private const int CountOfSteps = 200000;
 
         // Стандартні межі для побудови графіку, при їх зміні генеруватимуться нові значення х для побудови.
         private double _left = -100;

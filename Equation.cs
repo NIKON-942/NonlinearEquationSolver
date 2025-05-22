@@ -66,23 +66,40 @@
             string result = "";
             for (int i = _coefficients.Length - 1; i >= 0; i--)
             {
-                if (_coefficients[i] != 0 && i > 1) //TODO 1
+                if (_coefficients[i] != 0 && i > 1)
                 {
                     if (result.Length > 0)
+                    {
                         result += _coefficients[i] > 0 ? "+ " : "- ";
-                    result += $"{Math.Abs(_coefficients[i])} * x^{i} ";
+                        result += $"{Math.Abs(_coefficients[i])} * x^{i} ";
+                    } else
+                    {
+                        result += $"{_coefficients[i]} * x^{i} ";
+                    }
                 }
                 else if (_coefficients[i] != 0 && i == 1)
                 {
                     if (result.Length > 0)
+                    {
                         result += _coefficients[i] > 0 ? "+ " : "- ";
-                    result += $"{Math.Abs(_coefficients[i])} * x ";
+                        result += $"{Math.Abs(_coefficients[i])} * x ";
+                    }
+                    else
+                    {
+                        result += $"{_coefficients[i]} * x ";
+                    }
                 }
                 else if (_coefficients[i] != 0)
                 {
                     if (result.Length > 0)
+                    {
                         result += _coefficients[i] > 0 ? "+ " : "- ";
-                    result += $"{Math.Abs(_coefficients[i])}";
+                        result += $"{Math.Abs(_coefficients[i])}";
+                    }
+                    else
+                    {
+                        result += $"{_coefficients[i]}";
+                    }
                 }
             }
             return result;

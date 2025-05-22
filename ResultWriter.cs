@@ -12,8 +12,8 @@ namespace NonlinearEquationSolver
         private const string FileName = "result.txt";
 
         public ResultWriter(Equation equation, EquationSolver equationSolver) {
-            this._equation = equation;
-            this._equationSolver = equationSolver;
+            _equation = equation;
+            _equationSolver = equationSolver;
         }
 
         // Записує знайдену відповідь у файл.

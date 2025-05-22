@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:NonlinearEquationSolver"
         xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
+        Icon="/Resources/math.ico"
         Title="NonLinearEquationSolver" Height="820" Width="1000" FontSize="16" MinWidth="1000" MinHeight="820">
     <Grid x:Name="App">
         <Grid.RowDefinitions>

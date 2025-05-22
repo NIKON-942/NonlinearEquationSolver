@@ -18,7 +18,7 @@ namespace NonlinearEquationSolver
         private EquationSolver _equationSolver;
         private ResultWriter _fileWriter;
 
-        private const double MinAbsoluteValue = 1e-7;
+        private const double MinAbsoluteValue = 1e-6;
         private const double MaxAbsoluteValue = 1e6;
 
         private const double MinPrecisionValue = 1e-13;
@@ -113,7 +113,7 @@ namespace NonlinearEquationSolver
             if (!isValid)
             {
                 e.Handled = true;
-                MessageBox.Show($"Дозволено вводити тільки дійсні числа.\nРоздільники: ',' та '.'",
+                MessageBox.Show($"Дозволено вводити тільки дійсні числа у форматі \"123.45\".\nРоздільники: ',' та '.'",
                                 "Некоректне введення", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
