@@ -1,7 +1,7 @@
 ﻿using ScottPlot;
 using ScottPlot.WPF;
 
-namespace WPF
+namespace NonlinearEquationSolver
 {
     class PlotController
     {
@@ -11,7 +11,7 @@ namespace WPF
 
         private const int CountOfSteps = 200000;
 
-        // Стандартні межі для побудови графіку, при їх зміні генеруватимуться нові значення х для побудови.
+        // Стандартні межі для побудови графіку, при їх зміні генеруватимуться нові значення х для побудови та крок.
         private double _left = -100;
         public double Left
         {
@@ -48,7 +48,7 @@ namespace WPF
             }
         }
 
-        // Стандартний крок для побудови графіку по точках, при його зміні генеруватимуться нові значення х для побудови.
+        // Крок для побудови графіку по точках.
         private double _step;
 
         // Створення об'єкту для побудови графіку equation.

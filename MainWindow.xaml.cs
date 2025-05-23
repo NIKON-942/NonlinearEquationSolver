@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using WPF;
 
 namespace NonlinearEquationSolver
 {
@@ -17,10 +16,10 @@ namespace NonlinearEquationSolver
         private EquationSolver _equationSolver;
         private ResultWriter _fileWriter;
 
-        private const double MinAbsoluteValue = 1e-6;
-        private const double MaxAbsoluteValue = 1e6;
+        private const double MinAbsoluteValue = 1e-3;
+        private const double MaxAbsoluteValue = 1e3;
 
-        private const double MinPrecisionValue = 1e-13;
+        private const double MinPrecisionValue = 1e-12;
         private const double MaxPrecisionValue = 1;
 
         public MainWindow()

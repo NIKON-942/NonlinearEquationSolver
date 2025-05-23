@@ -1,4 +1,4 @@
-﻿namespace WPF
+﻿namespace NonlinearEquationSolver
 {
     public class Equation
     {

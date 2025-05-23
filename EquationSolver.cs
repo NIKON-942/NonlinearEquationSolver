@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace WPF
+namespace NonlinearEquationSolver
 {
     public enum Method
     {
