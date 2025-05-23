@@ -290,8 +290,11 @@ namespace NonlinearEquationSolver
                 _plot.Left = root - 50;
             _plot.Update();
 
+            // Прибрати неточну частину відповіді
+            double factor = Math.Pow(10, EquationSolver.GetDecimalPlacesOfPrecision(precision));
+            root = Math.Truncate(root * factor) / factor;
+
             // Вивід відповіді і інших даних користувачу.
-            root = Math.Round(root, EquationSolver.GetDecimalPlacesOfPrecision(precision));
             ResultLabel.Content += $"Відповідь: x = {root:G15}\n";
             if (ComplexityCheckBox.IsChecked == true)
             {
