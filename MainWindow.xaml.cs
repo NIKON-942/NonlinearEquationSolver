@@ -11,14 +11,35 @@ namespace NonlinearEquationSolver
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Змінна для об'єкту рівняння
+        /// </summary>
         private Equation _equation;
+
+        /// <summary>
+        /// Змінна для об'єкту контролера графіком
+        /// </summary>
         private PlotController _plot;
+
+        /// <summary>
+        /// Змінна для об'єкту розв'язувача рівняння
+        /// </summary>
         private EquationSolver _equationSolver;
+
+        /// <summary>
+        /// Змінна для об'єкту запису у файл
+        /// </summary>
         private ResultWriter _fileWriter;
 
+        /// <summary>
+        /// Межі на введення даних від користувача (окрім точності)
+        /// </summary>
         private const double MinAbsoluteValue = 1e-3;
         private const double MaxAbsoluteValue = 1e3;
 
+        /// <summary>
+        /// Межі на введення точності від користувача
+        /// </summary>
         private const double MinPrecisionValue = 1e-12;
         private const double MaxPrecisionValue = 1;
 
@@ -37,7 +58,11 @@ namespace NonlinearEquationSolver
             DataObject.AddPastingHandler(Precision, TextPasteHandler);
         }
 
-        // Обробляє зміну вибору степеня рівняння.
+        /// <summary>
+        /// Обробляє зміну вибору степеня рівняння.
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void PowerSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Power0 == null)
@@ -60,7 +85,11 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Обробляє зміну вибору методу розв'язання рівняння.
+        /// <summary>
+        /// Обробляє зміну вибору методу розв'язання рівняння.
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void MethodSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CustomValues == null)
@@ -92,7 +121,11 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Обробляє введення тексту користувачем.
+        /// <summary>
+        /// Обробляє введення тексту користувачем.
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void TextInputHandler(object sender, TextCompositionEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -139,7 +172,11 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Обробляє вставку тексту.
+        /// <summary>
+        /// Обробляє вставку тексту.
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void TextPasteHandler(object sender, DataObjectPastingEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -182,7 +219,11 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Оновлює коефіцієнти рівняння при зміні тексту в відповідному полі.
+        /// <summary>
+        /// Оновлює коефіцієнти рівняння при зміні тексту в відповідному полі.
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void CoefficientsUpdate(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
@@ -199,7 +240,11 @@ namespace NonlinearEquationSolver
             _plot.Update();
         }
 
-        // Обробляє натискання кнопки "Обчислити".
+        /// <summary>
+        /// Обробляє натискання кнопки "Обчислити".
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
             double root = 0;
@@ -290,7 +335,7 @@ namespace NonlinearEquationSolver
                 _plot.Left = root - 50;
             _plot.Update();
 
-            // Прибрати неточну частину відповіді
+            // Прибрати неточну частину відповіді.
             double factor = Math.Pow(10, EquationSolver.GetDecimalPlacesOfPrecision(precision));
             root = Math.Truncate(root * factor) / factor;
 
@@ -307,7 +352,11 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Обробляє зміну стану чекбоксу "Новий файл".
+        /// <summary>
+        /// Обробляє зміну стану чекбоксу "Новий файл".
+        /// </summary>
+        /// <param name="sender">Об'єкт, що викликав подію</param>
+        /// <param name="e">Параматри події</param>
         private void NewFileCheckbox_Changed(object sender, RoutedEventArgs e)
         {
             CheckBox writeToFile = sender as CheckBox;

@@ -5,14 +5,34 @@ namespace NonlinearEquationSolver
 {
     class PlotController
     {
+        /// <summary>
+        /// Посилання на графік у графічному інтерфейсі.
+        /// </summary>
         private WpfPlot _current;
+
+        /// <summary>
+        /// Змінна для об'єкту рівняння.
+        /// </summary>
         private Equation _equation;
+
+        /// <summary>
+        /// Масив значень по осі X, що використовуються для побудови графіка.
+        /// </summary>
         private double[] _dataX;
 
+        /// <summary>
+        /// Визначає кількість кроків, що використовуються для генерації даних для побудови графіка функції.
+        /// </summary>
         private const int CountOfSteps = 100000;
 
-        // Стандартні межі для побудови графіку, при їх зміні генеруватимуться нові значення х для побудови та крок.
+        /// <summary>
+        /// Внутрішнє поле для зберігання лівої межі графіка.
+        /// </summary>
         private double _left = -100;
+
+        /// <summary>
+        /// Отримує або встановлює ліву межу для побудови графіка.
+        /// </summary>
         public double Left
         {
             set
@@ -30,7 +50,14 @@ namespace NonlinearEquationSolver
             }
         }
 
+        /// <summary>
+        /// Внутрішнє поле для зберігання правої межі графіка.
+        /// </summary>
         private double _right = 100;
+
+        /// <summary>
+        /// Отримує або встановлює праву межу для побудови графіка.
+        /// </summary>
         public double Right
         {
             set
@@ -48,10 +75,16 @@ namespace NonlinearEquationSolver
             }
         }
 
-        // Крок для побудови графіку по точках.
+        /// <summary>
+        /// Крок для побудови графіку по точках.
+        /// </summary>
         private double _step;
 
-        // Створення об'єкту для побудови графіку equation.
+        /// <summary>
+        /// Створення об'єкту для побудови графіку equation.
+        /// </summary>
+        /// <param name="current">Елемент на якому буде відображатися графік</param>
+        /// <param name="equation">Рівняння, графік якого потрібно побудувати</param>
         public PlotController(WpfPlot current, Equation equation)
         {
             this._current = current;
@@ -60,7 +93,9 @@ namespace NonlinearEquationSolver
             _dataX = Generate.Range(_left, _right, _step);
         }
 
-        // Додати вісі абсцис і ординат до графіку
+        /// <summary>
+        /// Додає осі координат (абсцис та ординат) до графіка у вигляді перехрестя.
+        /// </summary>
         private void AddAxis()
         {
             var crosshair = _current.Plot.Add.Crosshair(0, 0);
@@ -68,7 +103,9 @@ namespace NonlinearEquationSolver
             crosshair.LineWidth = 1.5f;
         }
 
-        // Оновити графік з новими значеннями х.
+        /// <summary>
+        /// Оновлює графік, перераховуючи значення функції для поточного діапазону та перемальовує його на елементі.
+        /// </summary>
         public void Update()
         {
             List<double> dataY = [];
@@ -80,7 +117,9 @@ namespace NonlinearEquationSolver
             _current.Refresh();
         }
 
-        // Повернути обмеження малювання графіку за замовчуванням.
+        /// <summary>
+        /// Скидає межі відображення графіка.
+        /// </summary>
         public void ResetLimits()
         {
             _left = -100;
@@ -89,7 +128,9 @@ namespace NonlinearEquationSolver
             _dataX = Generate.Range(_left, _right, _step);
         }
 
-        // Очистити графік залишивши лише вісі.
+        /// <summary>
+        /// Очищує область графіка.
+        /// </summary>
         public void Clear()
         {
             _current.Plot.Clear();

@@ -11,25 +11,42 @@ namespace NonlinearEquationSolver
 
     public class EquationSolver
     {
+        /// <summary>
+        /// Змінна для об'єкту рівняння.
+        /// </summary>
         private Equation _equation;
+
+        /// <summary>
+        /// Змінна для об'єкту таймера.
+        /// </summary>
         private Stopwatch _timer;
 
-        // Максимальна кількість ітерації, щоб уникнути "вічних" циклів.
+        /// <summary>
+        /// Максимальна кількість ітерації, щоб уникнути "вічних" циклів.
+        /// </summary>
         public const int MaxIterations = 1000000;
 
-        // Допустима похибка для перевірки на корінь та на степінь 10.
+        /// <summary>
+        /// Допустима похибка для перевірки на корінь та на степінь 10.
+        /// </summary>
         private const double Tolerance = 1e-3;
 
-        // Значення необхідні для пошуку наближеного розв'язку.
+        /// <summary>
+        /// Значення необхідні для пошуку наближеного розв'язку.
+        /// </summary>
         public double FirstValue { get; set; }
         public double SecondValue { get; set; }
         public double Precision { get; set; }
 
-        // Обчислення значень для практичної складності.
+        /// <summary>
+        /// Змінні для обчислення значень для практичної складності.
+        /// </summary>
         public int CountOfCalculations { get; private set; }
         public int CountOfIterations { get; private set; }
 
-        // Отримання часу витраченого на пошук наближення.
+        /// <summary>
+        /// Отримання часу витраченого на пошук наближення.
+        /// </summary>
         public double ElapsedMilliseconds {
             get
             {
@@ -37,26 +54,38 @@ namespace NonlinearEquationSolver
             } 
         }
 
-        // Створення об'єкту для пошуку розв'язку рівняння equation.
+        /// <summary>
+        /// Створення об'єкту для пошуку розв'язку рівняння equation.
+        /// </summary>
+        /// <param name="equation">Рівняння для розв'язку</param>
         public EquationSolver(Equation equation)
         {
             this._equation = equation;
             _timer = new Stopwatch();
         }
 
-        // Перевірка, чи застосовний метод бісекції для введених значень.
+        /// <summary>
+        /// Перевірка, чи застосовний метод бісекції для введених значень.
+        /// </summary>
+        /// <returns><c>true</c>, якщо значення функції <c>_equation</c> на кінцях інтервалу <c>[FirstValue, SecondValue]</c> мають різні знаки; в іншому випадку — <c>false</c></returns>
         public bool IsBisectionApplied()
         {
             return _equation.Calculate(FirstValue) * _equation.Calculate(SecondValue) < 0;
         }
 
-        // Перевірка чи застосовний метод Ньютона для введених значень.
+        /// <summary>
+        /// Перевірка чи застосовний метод Ньютона для введених значень.
+        /// </summary>
+        /// <returns><c>true</c>, якщо добуток значення функції <c>_equation</c> та її другої похідної в точці <c>FirstValue</c> є додатним; в іншому випадку — <c>false</c></returns>
         public bool IsNewtonApplied()
         {
             return _equation.Calculate(FirstValue) * _equation.GetDerivative().GetDerivative().Calculate(FirstValue) > 0;
         }
-        
-        // Функція для пошуку наближеного розв'язку методом бісекції.
+
+        /// <summary>
+        /// Функція для пошуку наближеного розв'язку методом бісекції.
+        /// </summary>
+        /// <returns>Наближене значення кореня рівняння</returns>
         public double BisectionMethod()
         {
             double tempX, a = FirstValue, b = SecondValue, calculatedA;
@@ -84,7 +113,10 @@ namespace NonlinearEquationSolver
             return tempX;
         }
 
-        // Функція для пошуку наближеного розв'язку методом Ньютона.
+        /// <summary>
+        /// Функція для пошуку наближеного розв'язку методом Ньютона.
+        /// </summary>
+        /// <returns>Наближене значення кореня рівняння</returns>
         public double NewtonMethod()
         {
             double xk = FirstValue, xk1 = xk, difference;
@@ -110,7 +142,10 @@ namespace NonlinearEquationSolver
             return xk1;
         }
 
-        // Функція для пошуку наближеного розв'язку методом січних.
+        /// <summary>
+        /// Функція для пошуку наближеного розв'язку методом січних.
+        /// </summary>
+        /// <returns>Наближене значення кореня рівняння</returns>
         public double SecantMethod()
         {
             double xk0 = FirstValue, xk1 = SecondValue, xk2 = 0, difference;
@@ -137,21 +172,33 @@ namespace NonlinearEquationSolver
             return xk2;
         }
 
-        // Перевірка чи є значення наближеним коренем equation.
+        /// <summary>
+        /// Перевірка чи є значення наближеним коренем equation.
+        /// </summary>
+        /// <param name="value">Значення, яке перевіряється на те, чи є воно коренем</param>
+        /// <returns><c>true</c>, якщо значення є коренем; в іншому випадку — <c>false</c></returns>
         public bool IsRoot(double value)
         {
             return _equation.Calculate(value - Precision * 4) * _equation.Calculate(value + Precision * 4) < 0 ||
                 Math.Abs(_equation.Calculate(value)) < Tolerance;
         }
 
-        // Перевірка чи є precision степенем 10.
+        /// <summary>
+        /// Перевірка чи є precision степенем 10.
+        /// </summary>
+        /// <param name="precision">Значення точності, яке перевіряється</param>
+        /// <returns><c>true</c>, якщо значення точності є коректним; в іншому випадку — <c>false</c></returns>
         public static bool IsPowerOfTen(double precision)
         {
             double log10 = Math.Log10(precision);
             return Math.Abs(log10 - Math.Round(log10)) < Tolerance;
         }
 
-        // Знайти кількість знаків precision після коми (кількість точних знаків розв'язку після коми).
+        /// <summary>
+        /// Визначає кількість знаків після коми для заданого значення точності.
+        /// </summary>
+        /// <param name="precision">Значення точності</param>
+        /// <returns>Кількість десяткових знаків у <paramref name="precision"/></returns>
         public static int GetDecimalPlacesOfPrecision(double precision)
         {
             string precisionString = precision.ToString("0.#############");
