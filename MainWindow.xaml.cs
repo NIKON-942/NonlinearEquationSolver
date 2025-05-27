@@ -41,7 +41,7 @@ namespace NonlinearEquationSolver
         /// Межі на введення точності від користувача
         /// </summary>
         private const double MinPrecisionValue = 1e-12;
-        private const double MaxPrecisionValue = 1;
+        private const double MaxPrecisionValue = 1e-2;
 
         public MainWindow()
         {
@@ -164,10 +164,10 @@ namespace NonlinearEquationSolver
                 MessageBox.Show($"Для коректної роботи програми використовуйте числа з діапазону [{-MaxAbsoluteValue:G15}; {-MinAbsoluteValue:G15}] або [{MinAbsoluteValue:G15}; {MaxAbsoluteValue:G15}]",
                                 "Некоректне введення", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else if (textBox == Precision && parsedValue != 0 && (parsedValue < MinPrecisionValue || parsedValue >= MaxPrecisionValue))
+            else if (textBox == Precision && parsedValue != 0 && (parsedValue < MinPrecisionValue || parsedValue > MaxPrecisionValue))
             {
                 e.Handled = true;
-                MessageBox.Show($"Для коректної роботи програми використовуйте точність у форматі \"0.00001\" з діапазону [{MinPrecisionValue:G15}; {MaxPrecisionValue:G15})",
+                MessageBox.Show($"Для коректної роботи програми використовуйте точність у форматі \"0.00001\" з діапазону [{MinPrecisionValue:G15}; {MaxPrecisionValue:G15}]",
                                 "Некоректне введення", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -211,10 +211,10 @@ namespace NonlinearEquationSolver
                 Dispatcher.BeginInvoke(new Action(() => MessageBox.Show($"Для коректної роботи програми використовуйте числа з діапазону [{-MaxAbsoluteValue:G15}; {-MinAbsoluteValue:G15}] або [{MinAbsoluteValue:G15}; {MaxAbsoluteValue:G15}]",
                                 "Некоректне введення", MessageBoxButton.OK, MessageBoxImage.Warning)));
             }
-            else if (textBox == Precision && parsedValue != 0 && (parsedValue < MinPrecisionValue || parsedValue >= MaxPrecisionValue))
+            else if (textBox == Precision && parsedValue != 0 && (parsedValue < MinPrecisionValue || parsedValue > MaxPrecisionValue))
             {
                 e.CancelCommand();
-                Dispatcher.BeginInvoke(new Action(() => MessageBox.Show($"Для коректної роботи програми використовуйте точність у форматі \"0.00001\" з діапазону [{MinPrecisionValue:G15}; {MaxPrecisionValue:G15})",
+                Dispatcher.BeginInvoke(new Action(() => MessageBox.Show($"Для коректної роботи програми використовуйте точність у форматі \"0.00001\" з діапазону [{MinPrecisionValue:G15}; {MaxPrecisionValue:G15}]",
                                 "Некоректне введення", MessageBoxButton.OK, MessageBoxImage.Warning)));
             }
         }
